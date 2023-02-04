@@ -1,7 +1,9 @@
 # depslib dependency file v1.0
-1675454246 source:c:\users\msi\desktop\wordle\wordle\main.c
+1675524009 source:c:\users\msi\desktop\wordle\wordle\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
+	<windows.h>
+	<conio.h>
 

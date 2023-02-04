@@ -280,7 +280,7 @@ void moduri_joc(){ //interfata si modurile de joc
             }
             else {
                 printf("Un cuvant a fost introdus, inceraca sa-l ghicesti!\n\n");
-                alg_joc(select_cuv_random());
+                alg_joc(cuv);
 
                 printf("Apasa 1 sa te intorci la meniu sau 2 ca sa iesi din joc\n\n");
                 unsigned mod2;
@@ -291,10 +291,9 @@ void moduri_joc(){ //interfata si modurile de joc
                 else if(mod2 == 1) moduri_joc();
             }
         }
-
         moduri_joc();
     }
-    else if (mod == 4) return 0;
+    else if (mod == 4) exit;
 }
 
 int main() {

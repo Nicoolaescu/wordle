@@ -15,3 +15,7 @@ ursulet
 panda
 activ
 vene
+gloante
+pusca
+castron
+borcan

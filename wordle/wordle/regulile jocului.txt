@@ -1,0 +1,20 @@
+Acest joc are ca scop ghicirea unor cuvinte urmand regulile urmatoare
+
+1. cuvantul poate avea intre 4 si 7 litere
+2. atunci cand un cuvant este introdus ca si incercare de a ghici pe ecran va fi afisat cuvantul incercat astfel:
+	->literele care nu fac parte din cuvantul cautat vor fi rosii
+	->literele care fac parte din cuvant dar nu sunt pe pozitia corecta vor fi galbene
+	->literele care fac parte din cuvant si sunt pe pozitia corecta vor fi verzi
+3.pt cuvinte de diferite lungimi ai incercari diferite:
+	->pt 4 litere ai 4 incercari
+	->pt 5 litere ai 6 incercari
+	->pt 6 litere ai 8 incercari
+	->pt 7 litere ai 10 incercari
+
+
+In meniul principal sunt 4 module care pot fi accesate introducand tasta corespunzatoare modulului dorit.
+
+1. Alegerea unui cuvant aleatoriu din biblioteca
+2. Introducerea de cuvinte noi in biblioteca
+3. Introducerea unui cuvant de ghicit de catre altcineva(in cazul in care cuvantul nu este inca in biblioteca
+acesata va fi adaugat in ea)
