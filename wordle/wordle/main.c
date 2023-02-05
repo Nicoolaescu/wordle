@@ -3,7 +3,6 @@
 #include <string.h>
 #include <time.h>
 #include <windows.h>
-#include <conio.h>
 #define LENGTH 100
 #define HEIGHT 16
 
@@ -271,7 +270,7 @@ void alg_joc(char *word){
                     printf("%c", cuv[j]);
                     SetConsoleTextAttribute(console_color, wOldColorAttrs);
                 }
-                else if(strchr(word, cuv[j] == NULL)) {
+                else if(strchr(word, cuv[j]) == NULL) {
                     SetConsoleTextAttribute(console_color, 44);
                     printf("%c", cuv[j]);
                     SetConsoleTextAttribute(console_color, wOldColorAttrs);
