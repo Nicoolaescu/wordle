@@ -7,8 +7,17 @@
 #define LENGTH 100
 #define HEIGHT 16
 
+
+/* \brief Declararea variabilelor care contin lungimea maxima si minima a unui cuvant. -> LUNG_MAX LUNG_MIN
+ *
+ */
 unsigned LUNG_MAX, LUNG_MIN;
 
+/* \brief Subprogramul de setare a lungimii. -> ( set_lung() )
+ *
+ * Subprogramul va deschide fisierul setari.txt si va extrage valorile corespunzatoare
+ * pentru lungimea maxima si respectiv minima a unui cuvant.
+ */
 void set_lung(){
     FILE * setari = fopen("setari.txt", "r");
 
@@ -18,6 +27,14 @@ void set_lung(){
 
 }
 
+/* \brief Subprogramul de citire a cuvintelor. -> ( citire_cuv(char* cuv) )
+ *
+ * Acest subprogram citeste de la tastatura cuvinte introduse si le evalueaza astfel incat
+ * acestea sa aiba marimea corespunzatoare.
+ *
+ * In cazul in care cuvantul introdus este prea lung sau prea scurt, subprogramul
+ * va afisa mai intai un text de eroare si apoi se va reapela.
+ */
 void citire_cuv(char* cuv){ //mai convenabil deoarece deja stim ca lungimea maxima este de 7 litere
     scanf("%s", cuv);
     printf("\n\n");
@@ -32,6 +49,11 @@ void citire_cuv(char* cuv){ //mai convenabil deoarece deja stim ca lungimea maxi
     }
 }
 
+/* \brief Citirea unui cuvant cand scopul este de a ghici altul. -> ( citire_incerc(char* cuv, unsigned lung) )
+ *
+ * Subprogramul va compara lungimea cuvantului care trebuie ghicit cu cel introdus si se va reapela
+ * daca lungimile nu coincid
+ */
 void citire_incerc(char* cuv, unsigned lung){ //citirea si restrictionarea cuvantului incercat
     scanf("%s", cuv);
     printf("\n\n");
@@ -42,6 +64,12 @@ void citire_incerc(char* cuv, unsigned lung){ //citirea si restrictionarea cuvan
     }
 }
 
+/* \brief Citirea unui cuvant in mod dinamic. -> ( citire_cuv_dinamic() )
+ *
+ * Un subprogram prototip care citeste un sir de caractere de nr necunoscut de litere si il stocheaza
+ * in memorie. Am renunat insa la ideea aceasta deoarece stiind deja restrictiile de lungime am putut
+ * scrie un subprogram mai simplu de citire.
+ */
 char* citire_cuv_dinamic(){ //citire a unui cuvant de nr necunoscut de litere folosind alocare dinamica
 
 	char *cuv = malloc(sizeof(char));
@@ -62,6 +90,10 @@ char* citire_cuv_dinamic(){ //citire a unui cuvant de nr necunoscut de litere fo
 	return cuv;
 }
 
+/* \brief Retinerea unui cuvat in biblioteca. -> ( retine_cuv(char* cuv) )
+ *
+ *
+ */
 void retine_cuv(char *cuv){ //scrie un cuvant introdus in biblioteca de cuvinte deja retinute
     FILE * biblioteca;
     biblioteca = fopen("biblioteca.txt", "a");
@@ -75,6 +107,11 @@ void retine_cuv(char *cuv){ //scrie un cuvant introdus in biblioteca de cuvinte 
     }
 }
 
+/* \brief Verificarea existentei cuvantului in biblioteca. -> ( exista_cuvantul(char* cuv) )
+ *
+ * Aloca in HEAP memorie pt un sir de caractere de lungimea nr de caractere din biblioteca.
+ * Apoi cauta daca un cuvant exista deja in sir, adica in biblioteca folosind strstr.
+ */
 int exista_cuvantul(char *cuv){ //verifica daca un cuvant anume este deja in biblioteca
     FILE * biblioteca;
     biblioteca = fopen("biblioteca.txt", "r");
@@ -94,6 +131,9 @@ int exista_cuvantul(char *cuv){ //verifica daca un cuvant anume este deja in bib
     else return 1;
 }
 
+/* \brief Subprogramu care inumara nr de cuvinte din biblioteca. -> ( nr_cuvinte() )
+ *
+ */
 unsigned nr_cuvinte(){ //inumara cate cuvinte sunt in biblioteca folosind ca si contor caracterul '\n'
     unsigned cont=0;
     FILE * biblioteca;
@@ -112,6 +152,9 @@ unsigned nr_cuvinte(){ //inumara cate cuvinte sunt in biblioteca folosind ca si 
     return cont/2;
 }
 
+/* \brief Generarea unui cuvant random. -> ( random_nr() )
+ *
+ */
 unsigned random_nr(){ //generator de nr luat la intamplare
     time_t t;
 
@@ -120,10 +163,16 @@ unsigned random_nr(){ //generator de nr luat la intamplare
     return ((unsigned)rand());
 }
 
+/* \brief Generarea unui cuvant random intr-un interval [min , range+min]. -> ( random_in_range() )
+ *
+ */
 unsigned random_in_range(unsigned range, unsigned min){ //generator de nr luat la intmplare int-un interval [min, min+range]
     return (random_nr() % range + min);
 }
 
+/* \brief Cautarea unui cuvant anume in biblioteca. -> ( cautare_cuv_index(unsigned index) )
+ *
+ */
 char *cautare_cuv_index(unsigned index){ //cauta cuvantul din fisierul biblioteca.txt cu indexul specificat
     char *word = malloc(LUNG_MAX * sizeof(char));
     FILE * biblioteca = fopen("biblioteca.txt", "r");
@@ -151,11 +200,27 @@ char *cautare_cuv_index(unsigned index){ //cauta cuvantul din fisierul bibliotec
     return word;
 }
 
+/* \brief Fuziunea a 3 alte subprograme care are ca rezultat extragerea unui cuvant random din biblioteca. -> ( select_cuv_random() )
+ *
+ */
 char *select_cuv_random(){ //luarea unui cuvant aleatoriu din fisierul text
 
     return cautare_cuv_index( random_in_range( nr_cuvinte() , 0 ) );
 }
 
+/* \brief Algoritmul principal al jocului de ghicit. -> ( alg_joc(char* word) )
+ *
+ * Primeste un cuvant din biblioteca si acorda incercari in functie de lungimea cuvantului de ghicit.
+ * 4 incercari pentru 4 litere
+ * 6 incercari pentru 5 litere
+ * 8 incercari pentru 6 litere
+ * 10 incercari pentru 7 litere
+ *
+ * La fiecare incercare daca nu este cuvantul corect cel introdus acesta va fi afisat colorat astfel:
+ * ->cu rosu vor fi literele care nu fac parte din cuvantul cautat
+ * ->cu galben vor fi literele care fac parte din cuvantul cautat dar nu sunt pe pozitia corecta
+ * ->cu verde vor fi literele care fac parte din cuvantul cautat si sunt pe pozitia corecta
+ */
 void alg_joc(char *word){
     unsigned incerc,lung=strlen(word);
     if(lung == 4) incerc = 4;
@@ -218,6 +283,14 @@ void alg_joc(char *word){
 
 }
 
+/* \brief Meniul si modurile jocului. -> ( moduri_joc() )
+ *
+ * Pentru navigare se va introduce de la tastatura cifra corespunzatoare modului dorit.
+ * Exista 3 moduri de joc:
+ * 1.Cuvant aleatoriu
+ * 2.Introduce cuvinte in biblioteca
+ * 3.Lasa pe altcineva sa introduca un cuvant pe care sa il ghicesti
+ */
 void moduri_joc(){ //interfata si modurile de joc
 
     printf("Alege modul de joc:\n1.Cuvant aleatoriu\n2.Introduce tu un cuvant care sa fie retinut in biblioteca\n3.Lasa pe altcineva sa introduca un cuvant\n4.Exit game\n\n");
