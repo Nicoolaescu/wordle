@@ -26,7 +26,7 @@ void citire_cuv(char* cuv){ //mai convenabil deoarece deja stim ca lungimea maxi
         printf("Cuvantul este prea mare, el trebuie sa aiba intre 4 si 7 litere\nIntrodu altul\n\n");
         citire_cuv(cuv);
     }
-    else if(strlen(cuv) < 4) {
+    else if(strlen(cuv) < LUNG_MIN) {
         printf("Cuvantul este prea mic, el trebuie sa aiba intre 4 si 7 litere\nIntrodu altul\n\n");
         citire_cuv(cuv);
     }
@@ -99,11 +99,10 @@ unsigned nr_cuvinte(){ //inumara cate cuvinte sunt in biblioteca folosind ca si 
     FILE * biblioteca;
     biblioteca = fopen("biblioteca.txt", "r");
     fseek(biblioteca, 0, SEEK_END);
-    int poz = ftell(biblioteca);
-    //printf("%d", poz);
+    unsigned poz = ftell(biblioteca);
     fseek(biblioteca, 0 , SEEK_SET);
 
-    for(int i=0;i<=poz;i++){
+    for(unsigned i=0;i<=poz;i++){
         char c;
         fscanf(biblioteca, "%c", &c);
         if(c == '\n') cont++;

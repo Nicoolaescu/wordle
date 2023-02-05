@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1675524009 source:c:\users\msi\desktop\wordle\wordle\main.c
+1675612039 source:c:\users\msi\desktop\wordle\wordle\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
