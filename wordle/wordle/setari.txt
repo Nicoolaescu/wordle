@@ -1,0 +1,2 @@
+LUNG_MAX= 7
+LUNG_MIN= 4

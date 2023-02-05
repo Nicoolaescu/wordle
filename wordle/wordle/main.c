@@ -4,17 +4,25 @@
 #include <time.h>
 #include <windows.h>
 #include <conio.h>
-#define LUNG_MAX 7
 #define LENGTH 100
 #define HEIGHT 16
 
+unsigned LUNG_MAX, LUNG_MIN;
 
+void set_lung(){
+    FILE * setari = fopen("setari.txt", "r");
+
+    char parametru[10];
+    fscanf(setari, "%s %u", parametru, &LUNG_MAX);
+    fscanf(setari, "%s %u", parametru, &LUNG_MIN);
+
+}
 
 void citire_cuv(char* cuv){ //mai convenabil deoarece deja stim ca lungimea maxima este de 7 litere
     scanf("%s", cuv);
     printf("\n\n");
 
-    if (strlen(cuv) > 7) { //restrictionarea lungimii cuvantului
+    if (strlen(cuv) > LUNG_MAX) { //restrictionarea lungimii cuvantului
         printf("Cuvantul este prea mare, el trebuie sa aiba intre 4 si 7 litere\nIntrodu altul\n\n");
         citire_cuv(cuv);
     }
@@ -297,6 +305,8 @@ void moduri_joc(){ //interfata si modurile de joc
 }
 
 int main() {
+
+    set_lung();
 
     moduri_joc();
 
